@@ -1,6 +1,3 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with
-[`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
-
 ## Getting Started
 
 First, run the development server:
@@ -22,3 +19,34 @@ auto-updates as you edit the file.
 This project uses
 [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to
 automatically optimize and load Inter, a custom Google Font.
+
+The data below was gotten from a test address
+
+#### Desktop
+
+- Home Page
+
+<img src="./public/home.png" >
+
+- NFT Page
+
+<img src="./public/nft-page.png" >
+
+### Link
+
+- Live Site URL: [Website Link](https://insomonia-lab-test.vercel.app/)
+
+## My process
+
+### Built with
+
+- Nextjs
+- Wagmi
+- RainbowKit
+- TypeScript
+- TailwindCSS
+
+## Author
+
+- Website - [Aliu Salaudeen](https://insomonia-lab-test.vercel.app/)
+- GitHub- [@aliiiu](https://github.com/aliiiu)

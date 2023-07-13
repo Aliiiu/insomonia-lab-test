@@ -23,9 +23,7 @@ const NFTPage = () => {
 
 	useEffect(() => {
 		const nftLists = async (userAddress: string) => {
-			return await alchemy.nft.getNftsForOwner(
-				'0xd8da6bf26964af9d7eed9e03e53415d37aa96045'
-			);
+			return await alchemy.nft.getNftsForOwner(userAddress);
 		};
 
 		if (address) {
@@ -52,18 +50,22 @@ const NFTPage = () => {
 					<BounceLoader color='#fff' size={100} />
 				</div>
 			) : isConnected ? (
-				<div className='pt-24 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 2xl:grid-cols-5 gap-8'>
-					{data?.ownedNfts.map((nft) => (
-						<NFTCard key={nft.tokenId} data={nft} />
-					))}
-				</div>
-			) : (
-				<div className='flex justify-center items-center py-10 px-5'>
-					<div className='md:text-sm text-sm px-5 py-3 flex items-center leading-5 rounded-lg bg-gray-50 text-gray-500'>
-						<IoWarning size={20} /> There are currently no available data for
-						this service
+				Number(data?.totalCount || 0) > 0 ? (
+					<div className='pt-24 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 2xl:grid-cols-5 gap-8'>
+						{data?.ownedNfts.map((nft) => (
+							<NFTCard key={nft.tokenId} data={nft} />
+						))}
 					</div>
-				</div>
+				) : (
+					<div className='flex justify-center items-center py-10 px-5'>
+						<div className='md:text-sm text-sm px-5 py-3 flex items-center leading-5 rounded-lg bg-gray-50 text-gray-500'>
+							<IoWarning size={20} /> There are currently no available data for
+							this service
+						</div>
+					</div>
+				)
+			) : (
+				''
 			)}
 		</Container>
 	);
