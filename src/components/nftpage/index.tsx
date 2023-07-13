@@ -42,14 +42,14 @@ const NFTPage = () => {
 		<Container>
 			<div className='flex flex-col items-center'>
 				<h1 className='font-bold text-center mb-5 text-2xl md:text-4xl'>
-					List of NFTs Owned
+					NFT Showcase
 				</h1>
 				<ConnectButton />
 			</div>
 
 			{isConnecting ? (
 				<div className='flex justify-center items-center h-[30vh] pt-24'>
-					<BounceLoader color='#000' size={100} />
+					<BounceLoader color='#fff' size={100} />
 				</div>
 			) : isConnected ? (
 				<div className='pt-24 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 2xl:grid-cols-5 gap-8'>

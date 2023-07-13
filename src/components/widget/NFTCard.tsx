@@ -16,10 +16,14 @@ const NFTCard = ({ data }: { data: OwnedNft }) => {
 						alt='Listing'
 					/>
 				</div>
-				<p className='text-sm font-semibold mt-3 capitalize'>{data.title}</p>
-				<p className='text-sm capitalize'>{data.description}</p>
-				<p className='text-sm'>{data.tokenId}</p>
-				<p className='text-sm'>{data.contract.address}</p>
+				<p className='text-sm text-neutral-800/70 font-semibold mt-3 capitalize'>
+					{data.title}
+				</p>
+				<p className='text-sm text-neutral-800/70 capitalize'>
+					{data.description}
+				</p>
+				<p className='text-sm text-neutral-800/70'>{data.tokenId}</p>
+				<p className='text-sm text-neutral-800/70'>{data.contract.address}</p>
 			</div>
 		</div>
 	);

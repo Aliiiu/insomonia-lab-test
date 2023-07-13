@@ -12,6 +12,7 @@ html,
 body,
 :root {
 	height: 100%;
+	background-color: black;
 	display: inherit !important;
 }
 
@@ -40,4 +41,9 @@ h5,
 h6,
 span {
 	overflow-wrap: break-word;
+	color: white;
+}
+
+.ant-select-selection-item {
+	color: black !important;
 }

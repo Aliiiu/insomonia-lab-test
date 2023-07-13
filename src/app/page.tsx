@@ -7,6 +7,9 @@ import useLoading from '../../hooks/useLoading';
 import { BounceLoader } from 'react-spinners';
 import { IoWarning } from 'react-icons/io5';
 import { Container } from '@/components/app-layout/Container';
+import Image from 'next/image';
+import CurrencyCard from '@/components/widget/CurrencyCard';
+import { decodeEntities } from '@/components/utils/helper';
 
 export default function Home() {
 	const [selectedCurrencies, setSelectedCurrencies] = useState<string[]>([
@@ -76,22 +79,21 @@ export default function Home() {
 		}
 	}, []);
 
-	const decodeEntities = (html: string): string => {
-		const txt = document.createElement('textarea');
-		txt.innerHTML = html;
-		return txt.value;
-	};
-
 	// console.log(selectedCurrencies);
 
 	return (
 		<Container>
-			<h1 className='font-bold text-center text-3xl md:text-4xl'>
-				Bitcoin Price Index
-			</h1>
+			<div className='flex items-center gap-2 justify-center'>
+				<div className='relative w-9 h-9 xl:w-12 xl:h-12'>
+					<Image src={'/bitcoin.png'} alt='' layout='fill' />
+				</div>
+				<h1 className='font-bold text-center text-3xl md:text-4xl'>
+					Bitcoin Price Index
+				</h1>
+			</div>
 			{loading ? (
 				<div className='flex justify-center items-center h-[30vh] pt-24'>
-					<BounceLoader color='#000' size={100} />
+					<BounceLoader color='#fff' size={100} />
 				</div>
 			) : (
 				<>
@@ -101,13 +103,14 @@ export default function Home() {
 								{priceData?.disclaimer || ''}
 							</p>
 							<div className='flex flex-col items-center mt-10'>
-								<div className='flex flex-col gap-2'>
-									<div>
+								<div className='flex flex-col gap-4'>
+									<div className='flex flex-col gap-4 md:flex-row justify-between'>
 										<label className='flex gap-1 items-center'>
-											Refresh Interval:
+											<p className='text-white'>Refresh Interval:</p>
 											<Select
 												value={refreshInterval}
-												style={{ width: 120 }}
+												style={{ color: '#000' }}
+												className='w-[120px] placeholder:text-black'
 												onChange={handleRefreshIntervalChange}
 												options={[
 													{ value: 5000, label: '5 seconds' },
@@ -116,54 +119,57 @@ export default function Home() {
 												]}
 											/>
 										</label>
+										<div className='flex flex-col gap-2'>
+											<Checkbox
+												checked={selectedCurrencies.includes('USD')}
+												onChange={() => handleCurrencyToggle('USD')}
+											>
+												<p className='font-medium'>
+													{priceData?.bpi?.USD?.description || ''}
+												</p>
+											</Checkbox>
+											<Checkbox
+												checked={selectedCurrencies.includes('GBP')}
+												onChange={() => handleCurrencyToggle('GBP')}
+											>
+												<p className='font-medium'>
+													{priceData?.bpi?.GBP?.description || ''}
+												</p>
+											</Checkbox>
+											<Checkbox
+												checked={selectedCurrencies.includes('EUR')}
+												onChange={() => handleCurrencyToggle('EUR')}
+											>
+												<p className='font-medium'>
+													{priceData?.bpi?.EUR?.description || ''}
+												</p>
+											</Checkbox>
+										</div>
 									</div>
-									<div className='flex flex-col gap-2'>
-										<Checkbox
-											checked={selectedCurrencies.includes('USD')}
-											onChange={() => handleCurrencyToggle('USD')}
-										>
-											<p className='font-medium'>
-												{priceData?.bpi?.USD?.description || ''}
-											</p>
-										</Checkbox>
-										<Checkbox
-											checked={selectedCurrencies.includes('GBP')}
-											onChange={() => handleCurrencyToggle('GBP')}
-										>
-											<p className='font-medium'>
-												{priceData?.bpi?.GBP?.description || ''}
-											</p>
-										</Checkbox>
-										<Checkbox
-											checked={selectedCurrencies.includes('EUR')}
-											onChange={() => handleCurrencyToggle('EUR')}
-										>
-											<p className='font-medium'>
-												{priceData?.bpi?.EUR?.description || ''}
-											</p>
-										</Checkbox>
-									</div>
-									<div>
+									<div className='mt-2 gap-4 grid grid-cols-1 sm:grid-cols-2 sm:gap-6 lg:max-w-4xl lg:mx-auto xl:max-w-none xl:mx-0 xl:grid-cols-3'>
 										{selectedCurrencies.includes('USD') && (
-											<p>
-												<span>USD:</span>{' '}
-												{decodeEntities(priceData.bpi?.USD.symbol || '')}
-												{priceData.bpi?.USD.rate}
-											</p>
+											<CurrencyCard
+												description={priceData?.bpi?.USD?.description}
+												rate={priceData?.bpi?.USD?.rate_float}
+												symbol={decodeEntities(priceData?.bpi?.USD?.symbol)}
+												updated={priceData?.time?.updated}
+											/>
 										)}
 										{selectedCurrencies.includes('GBP') && (
-											<p>
-												<span>GBP:</span>{' '}
-												{decodeEntities(priceData.bpi?.GBP.symbol || '')}
-												{priceData.bpi?.GBP.rate}
-											</p>
+											<CurrencyCard
+												description={priceData?.bpi?.GBP?.description}
+												rate={priceData?.bpi?.GBP?.rate_float}
+												symbol={decodeEntities(priceData?.bpi?.GBP?.symbol)}
+												updated={priceData?.time?.updated}
+											/>
 										)}
 										{selectedCurrencies.includes('EUR') && (
-											<p>
-												<span>EUR:</span>{' '}
-												{decodeEntities(priceData.bpi?.EUR.symbol || '')}
-												{priceData.bpi?.EUR.rate}
-											</p>
+											<CurrencyCard
+												description={priceData?.bpi?.EUR?.description}
+												rate={priceData?.bpi?.EUR?.rate_float}
+												symbol={decodeEntities(priceData?.bpi?.EUR?.symbol)}
+												updated={priceData?.time?.updated}
+											/>
 										)}
 									</div>
 								</div>
